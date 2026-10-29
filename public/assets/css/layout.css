@@ -1,0 +1,23 @@
+/* Shared layout helpers. Page styles remain authoritative for their own shells. */
+.page-width {
+    width: min(calc(100% - 40px), var(--page-width));
+    margin-inline: auto;
+}
+
+.vf-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.vf-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+@media (max-width: 760px) {
+    .vf-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,26 @@
+/* Shared design tokens. Page styles may extend these values. */
+:root {
+    color-scheme: light;
+    --surface: #fcf9f8;
+    --white: #ffffff;
+    --low: #f6f3f2;
+    --mid: #f0eded;
+    --high: #eae7e7;
+    --border: #e5e2e1;
+    --ink: #1c1b1b;
+    --muted: #625b5c;
+    --outline: #7e7576;
+    --green: #006d38;
+    --green-pale: #e6f4ea;
+    --green-light: #85faa9;
+    --blue: #276ef1;
+    --error: #ba1a1a;
+    --warning: #8a5300;
+    --page-width: 1280px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --shadow-sm: 0 1px 3px rgba(28, 27, 27, .06);
+    --shadow-md: 0 10px 30px rgba(28, 27, 27, .08);
+    font-family: "Plus Jakarta Sans", Arial, sans-serif;
+}

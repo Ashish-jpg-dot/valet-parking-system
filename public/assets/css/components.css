@@ -1,0 +1,347 @@
+/* Shared components added by the application layer. */
+.flash-stack {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.flash {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.flash-success {
+    border-color: #bfe3cb;
+    background: var(--green-pale);
+    color: #0b4d28;
+}
+
+.flash-error {
+    border-color: #efc3c0;
+    background: #fff1f0;
+    color: #8c1414;
+}
+
+.flash-info {
+    border-color: #c9d9f8;
+    background: #eef4ff;
+    color: #1b3f82;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--high);
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    line-height: 1.6;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.header-status[data-online="false"] {
+    border-color: var(--border);
+    background: var(--mid);
+    color: var(--muted);
+}
+
+.header-status[data-online="false"] .status-dot {
+    background: var(--outline);
+}
+
+.local-state[data-online="false"] {
+    background: var(--mid);
+}
+
+.status-pill.tone-success {
+    background: var(--green-pale);
+    color: var(--green);
+}
+
+.status-pill.tone-warning {
+    background: #fff4df;
+    color: var(--warning);
+}
+
+.status-pill.tone-danger {
+    background: #fff1f0;
+    color: var(--error);
+}
+
+.status-pill.tone-neutral {
+    background: var(--high);
+    color: var(--muted);
+}
+
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
+.logout-link {
+    display: inline-flex;
+    min-height: 36px;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    background: var(--mid);
+}
+
+.logout-link .material-symbols-outlined {
+    font-size: 16px;
+}
+
+@media (max-width: 640px) {
+    .logout-link {
+        padding: 0 9px;
+    }
+
+    .logout-link-label {
+        display: none;
+    }
+}
+
+.otp-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    border: 1px dashed var(--green);
+    border-radius: var(--radius-md);
+    background: var(--green-pale);
+}
+
+.otp-box strong {
+    font-size: 26px;
+    letter-spacing: .22em;
+    color: var(--green);
+}
+
+.field-error-text {
+    margin: 0;
+    color: var(--error);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.muted-copy {
+    color: var(--muted);
+}
+
+.button-danger {
+    background: transparent;
+    border-color: #efc3c0;
+    color: var(--error);
+}
+
+.button-danger:hover {
+    background: #fff1f0;
+}
+
+.form-section-title {
+    margin: 0 0 4px;
+    font-size: 15px;
+}
+
+.table-empty {
+    padding: 24px 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.timeline-step.is-done {
+    border-color: #bfe3cb;
+    background: var(--green-pale);
+}
+
+.timeline-step.is-current {
+    border-color: var(--green);
+    background: var(--green);
+    color: #fff;
+}
+
+.timeline-step.is-current small {
+    color: rgba(255, 255, 255, .75);
+}
+
+/* Leaflet maps */
+.map-picker,
+.map-viewer {
+    margin-top: 12px;
+}
+
+.map-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.map-toolbar .button {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12px;
+}
+
+.map-status {
+    flex: 1 1 220px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.map-canvas {
+    height: 240px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--high);
+    z-index: 0;
+}
+
+.map-viewer .map-canvas {
+    height: 270px;
+}
+
+.map-canvas[hidden] {
+    display: none;
+}
+
+.map-empty {
+    margin: 0;
+    padding: 18px;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-md);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.map-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+}
+
+.map-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: var(--green);
+}
+
+.map-dot.return {
+    background: var(--warning);
+}
+
+/* Inspection records */
+.inspection-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.inspection-item {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--low);
+}
+
+.inspection-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.inspection-head span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.inspection-meta {
+    margin: 6px 0 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.inspection-notes {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.inspection-photos {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.inspection-photo {
+    display: block;
+    width: 82px;
+    height: 62px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--high);
+}
+
+.inspection-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.inline-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.inline-actions > form {
+    flex: 1 1 140px;
+}
+
+.inline-actions .button {
+    width: 100%;
+}
