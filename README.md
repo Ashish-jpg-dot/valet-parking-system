@@ -52,27 +52,6 @@ upload limit is 2 MB per file.
 | Valet    | `marcus@valetflow.local`   | `Valet@123`  |
 | Valet    | `rahul@valetflow.local`    | `Valet@123` (pending approval) |
 
-## Fixes applied after the QA audit
-
-| # | Finding | Fix |
-|---|---------|-----|
-| 1 | Stored XSS in Leaflet popups | Popup labels are inserted as text, never as HTML |
-| 2 | Two active bookings from a double submit | Booking creation runs in a transaction that locks the customer row and re-checks active bookings |
-| 3 | Withdrawals could pay out more than the balance | Withdrawal runs in a transaction that locks the account and recomputes the available balance |
-| 4 | A valet could hold a parking and a return job at once | The busy check looks at both parking and return assignments |
-| 5 | Past pickup times and returns before pickup were accepted | The server rejects a pickup that is not in the future and a return that is not after pickup; the form inputs carry the same minimums |
-| 6 | No brute-force protection on login or handover PINs | 5 failures lock the account or the PIN for 15 minutes |
-| 7 | Admin actions on fake IDs flashed success | Admin actions check affected rows and report an error when nothing changed |
-| 8 | UI promised 5 MB / 10 MB uploads but PHP allowed 2 MB | App limits lowered to 2 MB and all hints and error messages updated |
-| 9 | Seven Leaflet maps initialised eagerly in admin dialogs | Each dialog map is created the first time the dialog opens |
-| 10 | Missing security headers and unconditional cookie flags | Added CSP, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`; the session cookie is `Secure` on HTTPS |
-| 11 | PHP errors displayed to users | `APP_DEBUG` is off by default in `app/config.php` |
-| 12 | Inline `onsubmit` handler on the cancel-booking form | Replaced with a `data-confirm` attribute handled by shared JavaScript |
-| 13 | Active dashboard tabs had no visible `h1` | The active customer and valet panels each expose exactly one `h1` |
-
-The lockout columns (`failed_attempts`, `locked_until` on `tbl_login`;
-`attempts`, `locked_until` on `tbl_otp`) are added by `database/migrate.php`.
-
 ## Notes and known limits
 
 - The demo uses public OpenStreetMap tiles and the public Nominatim search API.
