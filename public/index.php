@@ -6,7 +6,9 @@ require_once __DIR__ . '/../app/helpers.php';
 require_once __DIR__ . '/../app/stats.php';
 
 $currentUser = current_user();
-$dashboardLink = $currentUser ? dashboard_url($currentUser['role']) : 'register.php';
+if ($currentUser) {
+    redirect(dashboard_url($currentUser['role']));
+}
 $stats = landing_stats();
 $currentYear = date('Y');
 ?>
@@ -76,13 +78,8 @@ $currentYear = date('Y');
             </nav>
 
             <div class="account-actions">
-                <?php if ($currentUser): ?>
-                    <a class="login-button" href="<?= e(dashboard_url($currentUser['role'])) ?>"><?= e($currentUser['name']) ?></a>
-                    <a class="signup-button" href="logout.php">Log out</a>
-                <?php else: ?>
-                    <a class="login-button" href="login.php">Log In</a>
-                    <a class="signup-button" href="register.php">Sign up</a>
-                <?php endif; ?>
+                <a class="login-button" href="login.php">Log In</a>
+                <a class="signup-button" href="register.php">Sign up</a>
                 <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
                     <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
                 </button>
@@ -99,8 +96,8 @@ $currentYear = date('Y');
                     <p class="hero-lead">ValetFlow — Parking Made Simple</p>
                     <p class="hero-description">ValetFlow connects you with a verified valet who collects your car, parks it and returns it when you ask. Book from <?= e(money(BASE_FARE)) ?> per booking, anywhere the service is available.</p>
                     <div class="hero-actions">
-                        <a class="primary-button" href="<?= e($dashboardLink) ?>">
-                            <?= $currentUser ? 'Open Dashboard' : 'Book a Valet' ?>
+                        <a class="primary-button" href="register.php">
+                            Book a Valet
                             <svg class="icon" aria-hidden="true"><use href="#icon-arrow"></use></svg>
                         </a>
                     </div>
@@ -241,7 +238,12 @@ $currentYear = date('Y');
                         <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#icon-car"></use></svg></span>
                         <span class="brand-name">ValetFlow</span>
                     </a>
+                    <h2 class="footer-about-title">About ValetFlow</h2>
                     <p class="footer-description">On-demand valet parking that connects customers with verified valets across cities, towns and neighbourhoods.</p>
+                    <ul class="footer-about-list">
+                        <li><svg class="icon" aria-hidden="true"><use href="#icon-check-shield"></use></svg>Verified, admin-approved valets</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#icon-garage"></use></svg>Recorded inspections at every handover</li>
+                    </ul>
                     <span class="dispatch-status"><span class="status-dot" aria-hidden="true"></span><?= (int) $stats['online_valets'] ?> valet<?= $stats['online_valets'] === 1 ? '' : 's' ?> online</span>
                 </div>
                 <nav class="footer-links" aria-label="Platform links">

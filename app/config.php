@@ -47,6 +47,8 @@ $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
 header('X-Frame-Options: DENY');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
 header(
     "Content-Security-Policy: default-src 'self'; "
     . "img-src 'self' data: https://*.tile.openstreetmap.org; "

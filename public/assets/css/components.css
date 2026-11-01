@@ -8,6 +8,7 @@
 .flash {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 10px;
     padding: 12px 14px;
     border: 1px solid var(--border);
@@ -15,6 +16,31 @@
     background: var(--white);
     font-size: 13px;
     line-height: 1.45;
+}
+
+.flash-close {
+    display: inline-grid;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+    place-items: center;
+    margin: -4px -4px -4px 0;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    opacity: .7;
+}
+
+.flash-close:hover {
+    background: rgb(0 0 0 / 6%);
+    opacity: 1;
+}
+
+.flash-close .material-symbols-outlined {
+    font-size: 16px;
 }
 
 .flash-success {

@@ -138,48 +138,28 @@
 
         .brand {
             flex: 0 0 auto;
-            gap: 10px;
+            gap: 9px;
             text-decoration: none;
         }
 
-        .brand-symbol {
+        .brand-mark {
             display: grid;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             flex: 0 0 auto;
-            transform: rotate(45deg);
             place-items: center;
             border-radius: 9px;
             background: #000;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 800;
         }
 
-        .brand-symbol span {
-            width: 13px;
-            height: 13px;
-            border-radius: 2px;
-            background: #fff;
-        }
-
-        .brand-copy {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .brand-copy strong {
+        .brand-name {
             color: #000;
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: -.05em;
-        }
-
-        .brand-copy small {
-            margin-top: 3px;
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 800;
-            letter-spacing: .12em;
-            text-transform: uppercase;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -.04em;
         }
 
         .desktop-tabs {
@@ -366,6 +346,13 @@
             line-height: 1.65;
         }
 
+        .welcome-meta {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
         .account-badge {
             display: inline-flex;
             align-items: center;
@@ -441,57 +428,6 @@
             opacity: .55;
         }
 
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .kpi-card {
-            display: flex;
-            min-height: 158px;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 18px;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            background: #fff;
-            box-shadow: 0 2px 4px rgb(0 0 0 / 3%);
-        }
-
-        .kpi-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            color: var(--muted);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        .kpi-top .material-symbols-outlined {
-            color: var(--green);
-            font-size: 21px;
-        }
-
-        .kpi-value {
-            margin-top: 14px;
-            color: #000;
-            font-size: 23px;
-            font-variant-numeric: tabular-nums;
-            font-weight: 800;
-            letter-spacing: -.04em;
-            line-height: 1.2;
-        }
-
-        .kpi-description {
-            margin-top: 4px;
-            color: var(--muted);
-            font-size: 11px;
-        }
-
         .text-action {
             display: inline-flex;
             width: fit-content;
@@ -543,39 +479,6 @@
 
         .card-heading .material-symbols-outlined {
             color: var(--green);
-        }
-
-        .rule-card p {
-            margin: 0 0 15px;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.7;
-        }
-
-        .rule-state {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--low);
-        }
-
-        .rule-state strong,
-        .rule-state small {
-            display: block;
-        }
-
-        .rule-state strong {
-            font-size: 11px;
-        }
-
-        .rule-state small {
-            margin-top: 3px;
-            color: var(--muted);
-            font-size: 10px;
         }
 
         .recent-list {
@@ -1404,12 +1307,11 @@
             font-weight: 800;
         }
 
-        .footer-diamond {
-            width: 15px;
-            height: 15px;
-            transform: rotate(45deg);
-            border: 4px solid #000;
-            border-radius: 3px;
+        .footer-mark {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            font-size: 10px;
         }
 
         @media (max-width: 1199px) {
@@ -1479,23 +1381,14 @@
                 gap: 8px;
             }
 
-            .brand-symbol {
+            .brand-mark {
                 width: 31px;
                 height: 31px;
                 border-radius: 8px;
             }
 
-            .brand-symbol span {
-                width: 11px;
-                height: 11px;
-            }
-
-            .brand-copy strong {
+            .brand-name {
                 font-size: 16px;
-            }
-
-            .brand-copy small {
-                font-size: 8px;
             }
 
             .portal-status {
@@ -1530,15 +1423,6 @@
 
             .button-row .button {
                 flex: 1 1 auto;
-            }
-
-            .kpi-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .kpi-card {
-                min-height: 130px;
             }
 
             .two-column,

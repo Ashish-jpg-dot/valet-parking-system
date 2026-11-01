@@ -17,4 +17,28 @@
             event.preventDefault();
         }
     });
+
+    // Re-check auth state when the browser restores a page from its back/forward cache.
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+
+    // Flash messages can be dismissed without reloading the page.
+    document.querySelectorAll('.flash').forEach((flash) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'flash-close';
+        button.setAttribute('aria-label', 'Dismiss message');
+        button.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">close</span>';
+        button.addEventListener('click', () => {
+            const stack = flash.parentElement;
+            flash.remove();
+            if (stack?.classList.contains('flash-stack') && !stack.querySelector('.flash')) {
+                stack.remove();
+            }
+        });
+        flash.append(button);
+    });
 })();

@@ -212,25 +212,6 @@ $currentYear = date('Y');
     </header>
 
     <main class="page-shell dashboard-stack" id="main-content">
-        <section class="top-status-row" aria-label="Valet status">
-            <div class="partner-status-copy">
-                <span class="partner-pill"><span class="status-dot" aria-hidden="true"></span> VALET PARTNER</span>
-                <span class="status-meta"><strong>ID: VF-VAL-<?= str_pad((string) $valetId, 3, '0', STR_PAD_LEFT) ?></strong> · approved · <?= e($isLive ? 'receiving dispatches' : 'not receiving dispatches') ?></span>
-            </div>
-            <div class="partner-status-right">
-                <span class="demo-note"><?= $isLive ? 'You can accept parking and return jobs.' : 'Go online to see open jobs.' ?></span>
-                <div class="local-state" data-online="<?= $isLive ? 'true' : 'false' ?>">
-                    <span class="status-dot" aria-hidden="true"></span>
-                    <span class="local-state-text"><strong><?= $isLive ? 'Online' : 'Offline' ?></strong><span><?= $isLive ? 'Receiving dispatches' : 'Dispatch paused' ?></span></span>
-                    <form method="post" action="valet-dashboard.php" class="inline-form">
-                        <?= csrf_field() ?>
-                        <input type="hidden" name="action" value="toggle_online">
-                        <button class="switch" type="submit" role="switch" aria-checked="<?= $isLive ? 'true' : 'false' ?>" aria-label="<?= $isLive ? 'Go offline' : 'Go online' ?>"><span class="switch-thumb" aria-hidden="true"></span></button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
         <?php if ($flashes): ?>
             <div class="flash-stack">
                 <?php foreach ($flashes as $flash): ?>
@@ -239,32 +220,42 @@ $currentYear = date('Y');
             </div>
         <?php endif; ?>
 
-        <section class="metric-grid" aria-label="Shift metrics">
-            <article class="metric-card">
-                <div class="metric-label"><span>Today's Earnings</span><span class="material-symbols-outlined" aria-hidden="true">payments</span></div>
-                <div class="metric-value"><?= e(money($earnings['today'])) ?></div>
-            </article>
-            <article class="metric-card">
-                <div class="metric-label"><span>Completed Jobs</span><span class="material-symbols-outlined" aria-hidden="true">task_alt</span></div>
-                <div class="metric-value"><?= (int) $earnings['jobs'] ?></div>
-            </article>
-            <article class="metric-card">
-                <div class="metric-label"><span>Lifetime Earnings</span><span class="material-symbols-outlined" aria-hidden="true">account_balance</span></div>
-                <div class="metric-value"><?= e(money($earnings['total'])) ?></div>
-            </article>
-            <article class="metric-card">
-                <div class="metric-label"><span>Open Requests</span><span class="material-symbols-outlined" aria-hidden="true">radar</span></div>
-                <div class="metric-value"><?= $openCount ?></div>
-            </article>
-        </section>
-
         <section class="tab-panel panel-stack" id="panel-available" role="tabpanel" aria-labelledby="desktop-tab-available" data-panel="available" <?= $tab === 'available' ? '' : 'hidden' ?>>
+            <section class="top-status-row" aria-label="Valet status">
+                <div class="partner-status-copy">
+                    <span class="partner-pill"><span class="status-dot" aria-hidden="true"></span> VALET PARTNER</span>
+                    <span class="status-meta"><strong><?= $openCount ?> open request<?= $openCount === 1 ? '' : 's' ?></strong> · Today <?= e(money($earnings['today'])) ?></span>
+                </div>
+                <div class="partner-status-right">
+                    <span class="demo-note"><?= $isLive ? 'You can accept parking and return jobs.' : 'Go online to see open jobs.' ?></span>
+                    <div class="local-state" data-online="<?= $isLive ? 'true' : 'false' ?>">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        <span class="local-state-text"><strong><?= $isLive ? 'Online' : 'Offline' ?></strong><span><?= $isLive ? 'Receiving dispatches' : 'Dispatch paused' ?></span></span>
+                        <form method="post" action="valet-dashboard.php" class="inline-form">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="toggle_online">
+                            <button class="switch" type="submit" role="switch" aria-checked="<?= $isLive ? 'true' : 'false' ?>" aria-label="<?= $isLive ? 'Go offline' : 'Go online' ?>"><span class="switch-thumb" aria-hidden="true"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <?php if ($active): ?>
+                <div class="active-job-banner">
+                    <div>
+                        <span class="preview-badge"><span class="status-dot" aria-hidden="true"></span> <?= e(status_label($active['booking_status'])) ?></span>
+                        <h2>Active job · <?= e(booking_ref($active['booking_id'])) ?></h2>
+                        <p><?= e($active['vehicle_type'] . ' · ' . $active['vehicle_number']) ?> — continue where you left off.</p>
+                    </div>
+                    <button class="button button-secondary" type="button" data-open-tab="active"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>Continue Job</button>
+                </div>
+            <?php endif; ?>
+
             <div class="section-heading">
                 <div>
-                    <h1>Live Curbside Requests</h1>
-                    <p class="muted-copy">Accept a parking or return job. Only one active job at a time.</p>
+                    <h1>Parking </h1>
+                    <p class="muted-copy">Accept a parking job.</p>
                 </div>
-                <span class="sync-pill"><span class="material-symbols-outlined" aria-hidden="true">radar</span><?= $openCount ?> open request<?= $openCount === 1 ? '' : 's' ?></span>
             </div>
 
             <?php if (!$isLive): ?>

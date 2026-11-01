@@ -437,26 +437,11 @@
             font-size: 11px;
         }
 
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
-        }
-
-        .metric-card,
         .card {
             border: 1px solid #f0eded;
             border-radius: 14px;
             background: var(--white);
             box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
-        }
-
-        .metric-card {
-            display: grid;
-            min-height: 100px;
-            align-content: space-between;
-            gap: 10px;
-            padding: 16px;
         }
 
         .metric-label {
@@ -515,20 +500,6 @@
             margin-top: 5px;
             color: var(--muted);
             font-size: 12px;
-        }
-
-        .sync-pill {
-            display: inline-flex;
-            min-height: 30px;
-            flex: 0 0 auto;
-            align-items: center;
-            gap: 6px;
-            padding: 0 11px;
-            border-radius: 999px;
-            background: var(--high);
-            color: var(--ink);
-            font-size: 10px;
-            font-weight: 800;
         }
 
         .offline-state {
@@ -799,9 +770,14 @@
             color: #fff;
         }
 
-        .active-job-banner h1 {
+        .active-job-banner h1,
+        .active-job-banner h2 {
             margin-top: 8px;
             font-size: 21px;
+        }
+
+        .active-job-banner .button {
+            flex: 0 0 auto;
         }
 
         .active-job-banner p {
@@ -1569,10 +1545,6 @@
                 padding-right: 7px;
             }
 
-            .metric-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
             .active-detail-grid,
             .profile-layout {
                 grid-template-columns: 1fr;
@@ -1666,15 +1638,6 @@
 
             .local-state-text {
                 min-width: auto;
-            }
-
-            .metric-grid {
-                gap: 9px;
-            }
-
-            .metric-card {
-                min-height: 88px;
-                padding: 12px;
             }
 
             .metric-label {

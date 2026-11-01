@@ -168,11 +168,8 @@ $currentYear = date('Y');
         <div class="page-width header-main">
             <div class="header-brand-group">
                 <a class="brand" href="customer-dashboard.php" aria-label="Customer dashboard home">
-                    <span class="brand-symbol" aria-hidden="true"><span></span></span>
-                    <span class="brand-copy">
-                        <strong>ValetFlow</strong>
-                        <small>Customer Portal</small>
-                    </span>
+                    <span class="brand-mark" aria-hidden="true">V</span>
+                    <span class="brand-name">ValetFlow</span>
                 </a>
 
                 <nav class="desktop-tabs" role="tablist" aria-label="Customer dashboard sections">
@@ -226,75 +223,70 @@ $currentYear = date('Y');
             <div class="card welcome-card">
                 <div class="welcome-copy">
                     <span class="account-badge"><span class="green-dot" aria-hidden="true"></span>Customer account · <?= e($user['username']) ?></span>
-                    <h1>Welcome back, <?= e($customer['first_name']) ?></h1>
-                    <p>Book a valet, follow every handover, and request the return when you are ready.</p>
+                    <?php if ($active): ?>
+                        <h1>Your <?= e($active['vehicle_type']) ?> is in valet custody</h1>
+                        <p><?= e(booking_ref($active['booking_id']) . ' · ' . status_label($active['booking_status']) . ' · ' . $active['pickup_address']) ?></p>
+                    <?php else: ?>
+                        <h1>Welcome back, <?= e($customer['first_name']) ?></h1>
+                        <p><?= $vehicles ? 'Book a valet for your next trip. Pick your car, pickup point and time — it takes a minute.' : 'Add your vehicle first, then booking a valet takes about a minute.' ?></p>
+                        <p class="welcome-meta"><?= count($vehicles) ?> saved vehicle<?= count($vehicles) === 1 ? '' : 's' ?> · <?= count($completed) ?> completed trip<?= count($completed) === 1 ? '' : 's' ?></p>
+                    <?php endif; ?>
                 </div>
                 <div class="button-row">
-                    <button class="button" type="button" data-open-tab="book"><span class="material-symbols-outlined" aria-hidden="true">add_circle</span>New Reservation</button>
-                    <button class="button button-secondary" type="button" data-open-tab="active"><span class="material-symbols-outlined" aria-hidden="true">radar</span>Active Custody Status</button>
+                    <?php if ($active): ?>
+                        <button class="button" type="button" data-open-tab="active"><span class="material-symbols-outlined" aria-hidden="true">radar</span>Track Your Valet</button>
+                        <button class="button button-secondary" type="button" data-open-tab="history"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>View History</button>
+                    <?php elseif ($vehicles): ?>
+                        <button class="button" type="button" data-open-tab="book"><span class="material-symbols-outlined" aria-hidden="true">add_circle</span>Book a Valet</button>
+                        <button class="button button-secondary" type="button" data-open-tab="history"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>View History</button>
+                    <?php else: ?>
+                        <button class="button" type="button" data-open-tab="vehicles"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>Add Your Vehicle</button>
+                        <button class="button button-secondary" type="button" data-open-tab="history"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>View History</button>
+                    <?php endif; ?>
                 </div>
             </div>
 
-            <div class="kpi-grid" aria-label="Account summary">
-                <article class="kpi-card">
-                    <div class="kpi-top"><span>Active Custody</span><span class="material-symbols-outlined" aria-hidden="true">shield</span></div>
-                    <div>
-                        <div class="kpi-value"><?= $activeCount ?> Vehicle<?= $activeCount === 1 ? '' : 's' ?> in Custody</div>
-                        <div class="kpi-description"><?= $active ? e(status_label($active['booking_status'])) : 'No active booking' ?></div>
-                    </div>
-                    <button class="text-action" type="button" data-open-tab="active">Check active tracker <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
-                </article>
-                <article class="kpi-card">
-                    <div class="kpi-top"><span>Completed Parkings</span><span class="material-symbols-outlined" aria-hidden="true">history_edu</span></div>
-                    <div>
-                        <div class="kpi-value"><?= count($completed) ?> Trip<?= count($completed) === 1 ? '' : 's' ?></div>
-                        <div class="kpi-description">Handed back and completed</div>
-                    </div>
-                    <button class="text-action" type="button" data-open-tab="history">View booking history <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
-                </article>
-                <article class="kpi-card">
-                    <div class="kpi-top"><span>Registered Fleet</span><span class="material-symbols-outlined" aria-hidden="true">directions_car</span></div>
-                    <div>
-                        <div class="kpi-value" id="fleet-count"><?= count($vehicles) ?> Vehicle<?= count($vehicles) === 1 ? '' : 's' ?></div>
-                        <div class="kpi-description">Saved for faster booking</div>
-                    </div>
+            <section class="card">
+                <div class="card-heading">
+                    <h2>Your Vehicles</h2>
                     <button class="text-action" type="button" data-open-tab="vehicles">Manage fleet <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
-                </article>
-            </div>
-
-            <div class="two-column">
-                <article class="card rule-card">
-                    <div class="card-heading">
-                        <h2><span class="material-symbols-outlined" aria-hidden="true">verified_user</span> Single-Custody Rule</h2>
-                    </div>
-                    <p>Each customer account holds one physical vehicle custody session at a time, so every handover gets a dedicated valet.</p>
-                    <div class="rule-state">
-                        <div>
-                            <strong><?= $active ? e(status_label($active['booking_status'])) : 'No Active Vehicle in Custody' ?></strong>
-                            <small><?= $active ? e($active['vehicle_type'] . ' · ' . $active['vehicle_number']) : 'Your account is ready for a new booking' ?></small>
-                        </div>
-                        <button class="button" type="button" data-open-tab="<?= $active ? 'active' : 'book' ?>"><?= $active ? 'View Booking' : 'Book Now' ?></button>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card-heading">
-                        <h2>Recent Completed Journeys</h2>
-                        <button class="text-action" type="button" data-open-tab="history">View All History</button>
-                    </div>
-                    <div class="recent-list">
-                        <?php if (!$recent): ?>
-                            <p class="muted-copy">No completed journeys yet. Your first booking will appear here.</p>
-                        <?php else: ?>
-                            <?php foreach ($recent as $booking): ?>
-                                <div class="recent-item">
-                                    <div><strong><?= e(booking_ref($booking['booking_id']) . ' · ' . $booking['vehicle_type']) ?></strong><small><?= e(format_date($booking['pickup_date']) . ' · ' . (parking_slot_label($booking['parking_slot']) ?: 'Parking location')) ?></small></div>
-                                    <span class="recent-total"><?= e(money(booking_total($booking))) ?></span>
+                </div>
+                <?php if (!$vehicles): ?>
+                    <p class="muted-copy">No vehicles saved yet. Add one so your next booking takes a minute.</p>
+                    <div class="button-row" style="margin-top:12px"><button class="button button-secondary" type="button" data-open-tab="vehicles"><span class="material-symbols-outlined" aria-hidden="true">add</span>Add Vehicle</button></div>
+                <?php else: ?>
+                    <div class="fleet-grid">
+                        <?php foreach (array_slice($vehicles, 0, 2) as $vehicle): ?>
+                            <article class="vehicle-card">
+                                <div class="vehicle-heading">
+                                    <div><h3><?= e($vehicle['vehicle_type']) ?></h3><p><?= e(($vehicle['vehicle_color'] ?: 'Colour not set') . ' · ' . ($vehicle['fuel_level'] ?: 'Fuel not set')) ?></p></div>
+                                    <span class="status-pill">Saved</span>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <div class="vehicle-foot"><span>Plate: <strong><?= e($vehicle['vehicle_number']) ?></strong></span><span><?= $vehicle['odometer'] ? e(number_format((int) $vehicle['odometer'])) . ' km' : 'Odometer not set' ?></span></div>
+                            </article>
+                        <?php endforeach; ?>
                     </div>
-                </article>
-            </div>
+                <?php endif; ?>
+            </section>
+
+            <article class="card">
+                <div class="card-heading">
+                    <h2>Recent Completed Journeys</h2>
+                    <button class="text-action" type="button" data-open-tab="history">View All History</button>
+                </div>
+                <div class="recent-list">
+                    <?php if (!$recent): ?>
+                        <p class="muted-copy">No completed journeys yet. Your first booking will appear here.</p>
+                    <?php else: ?>
+                        <?php foreach ($recent as $booking): ?>
+                            <div class="recent-item">
+                                <div><strong><?= e(booking_ref($booking['booking_id']) . ' · ' . $booking['vehicle_type']) ?></strong><small><?= e(format_date($booking['pickup_date']) . ' · ' . (parking_slot_label($booking['parking_slot']) ?: 'Parking location')) ?></small></div>
+                                <span class="recent-total"><?= e(money(booking_total($booking))) ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </article>
         </section>
 
         <section class="tab-panel panel-stack" id="panel-book" role="tabpanel" aria-labelledby="desktop-tab-book" data-panel="book" <?= $tab === 'book' ? '' : 'hidden' ?>>
@@ -767,7 +759,7 @@ $currentYear = date('Y');
 
     <footer class="site-footer">
         <div class="page-width footer-inner">
-            <div class="inline-icon"><span class="footer-diamond" aria-hidden="true"></span><span class="footer-brand">ValetFlow</span><span>·</span><span>&copy; <?= e($currentYear) ?> ValetFlow Mobility Infrastructure Ltd. All rights reserved.</span></div>
+            <div class="inline-icon"><span class="footer-brand"><span class="brand-mark footer-mark" aria-hidden="true">V</span>ValetFlow</span><span>·</span><span>&copy; <?= e($currentYear) ?> ValetFlow Mobility Infrastructure Ltd. All rights reserved.</span></div>
             <span class="eyebrow">Customer Portal</span>
         </div>
     </footer>

@@ -737,6 +737,36 @@
             line-height: 1.7;
         }
 
+        .footer-about-title {
+            margin-bottom: 8px;
+            font-size: 11px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .footer-about-list {
+            display: grid;
+            gap: 6px;
+            margin: 0 0 12px;
+            padding: 0;
+            color: #d3d0d0;
+            font-size: 11px;
+            list-style: none;
+        }
+
+        .footer-about-list li {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .footer-about-list .icon {
+            width: 14px;
+            height: 14px;
+            flex: 0 0 auto;
+            color: var(--green-light);
+        }
+
         .dispatch-status {
             display: inline-flex;
             align-items: center;

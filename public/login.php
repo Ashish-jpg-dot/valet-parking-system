@@ -131,7 +131,7 @@ if (is_post()) {
                 <p class="signup-prompt">Don't have an account? Sign up</p>
                 <div class="registration-actions">
                     <a class="registration-button" href="register.php">Register as Customer</a>
-                    <a class="registration-button" href="valet-register.php">Register as Valet Partner</a>
+                    <a class="registration-button" href="valet-register.php">Register as Valet </a>
                 </div>
             </div>
         </section>
